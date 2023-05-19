@@ -17,5 +17,9 @@ void main() {
     expect(find.image(const AssetImage('assets/images/dice-2.png')),
         findsOneWidget);
     expect(find.text('press'), findsOneWidget);
+    final btn = find.byType(TextButton);
+
+    await tester.tap(btn);
+    expect(find.byType(Image), findsOneWidget);
   });
 }
