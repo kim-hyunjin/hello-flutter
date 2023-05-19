@@ -11,9 +11,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:roll_dice_app/main.dart';
 
 void main() {
-  testWidgets('hello world test', (WidgetTester tester) async {
+  testWidgets('first screen test', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
 
-    expect(find.text('Hello World!!!!!'), findsOneWidget);
+    expect(find.image(const AssetImage('assets/images/dice-2.png')),
+        findsOneWidget);
+    expect(find.text('press'), findsOneWidget);
   });
 }
