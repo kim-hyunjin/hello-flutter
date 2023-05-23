@@ -51,6 +51,7 @@ class ResultScreen extends StatelessWidget {
             style: const TextStyle(
               color: Color.fromARGB(255, 255, 120, 165),
               fontSize: 20,
+              fontWeight: FontWeight.bold,
             ),
             textAlign: TextAlign.center,
           ),
@@ -69,7 +70,7 @@ class ResultScreen extends StatelessWidget {
               foregroundColor: Colors.white,
             ),
             icon: const Icon(Icons.restart_alt),
-            label: const Text('restart!'),
+            label: const Text('Restart Quiz!'),
           ),
         ],
       ),

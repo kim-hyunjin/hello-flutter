@@ -12,58 +12,73 @@ class ResultSummary extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            ...summaryData.map((data) => Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: data['user_answer'] == data['correct_answer']
-                            ? Colors.blueAccent
-                            : Colors.pinkAccent,
-                        shape: BoxShape.circle,
-                      ),
-                      padding: const EdgeInsets.all(10),
-                      child: Text(
-                        ((data['index'] as int) + 1).toString(),
-                        style: const TextStyle(
-                          fontSize: 16,
+            ...summaryData.map((data) {
+              bool isCorrect = data['user_answer'] == data['correct_answer'];
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ResultIndicator(
+                      id: (data['index'] as int) + 1, isCorrect: isCorrect),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          data['question'].toString(),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
+                        const SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          data['user_answer'].toString(),
+                          style: const TextStyle(color: Colors.purpleAccent),
+                        ),
+                        Text(
+                          data['correct_answer'].toString(),
+                          style: const TextStyle(color: Colors.tealAccent),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                      ],
                     ),
-                    const SizedBox(
-                      width: 16,
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            data['question'].toString(),
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 16,
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            data['user_answer'].toString(),
-                            style: const TextStyle(color: Colors.purpleAccent),
-                          ),
-                          Text(
-                            data['correct_answer'].toString(),
-                            style: const TextStyle(color: Colors.tealAccent),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                )),
+                  ),
+                ],
+              );
+            }),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+class ResultIndicator extends StatelessWidget {
+  const ResultIndicator({super.key, required this.id, required this.isCorrect});
+
+  final int id;
+  final bool isCorrect;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: isCorrect ? Colors.blueAccent : Colors.pinkAccent,
+        shape: BoxShape.circle,
+      ),
+      padding: const EdgeInsets.all(10),
+      child: Text(
+        id.toString(),
+        style: const TextStyle(
+          fontSize: 16,
         ),
       ),
     );
