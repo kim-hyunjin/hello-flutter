@@ -51,6 +51,7 @@ class _QuiestionSreenState extends State<QuestionScreen> {
               height: 30,
             ),
             ...currentQuiz.shuffledOptions.map((e) => AnswerButton(
+                  key: Key('option_$e'),
                   text: e,
                   onTab: () {
                     chooseAnswer(e);

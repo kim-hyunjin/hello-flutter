@@ -7,56 +7,61 @@ class ResultSummary extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 400,
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            ...summaryData.map((data) {
-              bool isCorrect = data['user_answer'] == data['correct_answer'];
-              return Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ResultIndicator(
-                      id: (data['index'] as int) + 1, isCorrect: isCorrect),
-                  const SizedBox(
-                    width: 16,
-                  ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          data['question'].toString(),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          data['user_answer'].toString(),
-                          style: const TextStyle(color: Colors.purpleAccent),
-                        ),
-                        Text(
-                          data['correct_answer'].toString(),
-                          style: const TextStyle(color: Colors.tealAccent),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              );
-            }),
-          ],
-        ),
+    return Flexible(
+      child: ListView(
+        children: [
+          ...summaryData.map((data) => SummaryItem(data: data)),
+        ],
       ),
+    );
+  }
+}
+
+class SummaryItem extends StatelessWidget {
+  const SummaryItem({super.key, required this.data});
+
+  final Map<String, Object> data;
+
+  @override
+  Widget build(BuildContext context) {
+    bool isCorrect = data['user_answer'] == data['correct_answer'];
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ResultIndicator(id: (data['index'] as int) + 1, isCorrect: isCorrect),
+        const SizedBox(
+          width: 16,
+        ),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                data['question'].toString(),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(
+                data['user_answer'].toString(),
+                style: const TextStyle(color: Colors.purpleAccent),
+              ),
+              Text(
+                data['correct_answer'].toString(),
+                style: const TextStyle(color: Colors.tealAccent),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }

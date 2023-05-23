@@ -7,8 +7,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:quiz_app/data/quiz_list.dart';
 
 import 'package:quiz_app/main.dart';
+import 'package:quiz_app/models/quiz.dart';
 
 void main() {
   testWidgets('start screen test', (WidgetTester tester) async {
@@ -20,5 +22,21 @@ void main() {
     await tester.pump();
 
     expect(find.byKey(const Key('question')), findsOneWidget);
+  });
+
+  testWidgets('test question screen', (WidgetTester tester) async {
+    await tester.pumpWidget(const QuizApp());
+
+    expect(find.text('Start Quiz'), findsOneWidget);
+
+    await tester.tap(find.text('Start Quiz'));
+    await tester.pump();
+
+    for (Quiz quiz in quizList) {
+      await tester.tap(find.byKey(Key('option_${quiz.options[0]}')));
+      await tester.pump();
+    }
+
+    expect(find.byKey(const Key('result_title')), findsOneWidget);
   });
 }

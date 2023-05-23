@@ -40,11 +40,12 @@ class ResultScreen extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.all(40),
+      margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 100),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
+            key: const Key('result_title'),
             'You answerd $numOfCorrectAnswer out of ${quizList.length} questions correctly!',
             style: const TextStyle(
               color: Color.fromARGB(255, 255, 120, 165),
