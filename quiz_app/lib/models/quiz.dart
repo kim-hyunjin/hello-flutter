@@ -7,4 +7,10 @@ class Quiz {
   final String question;
   final List<String> options;
   final String correctAnswer;
+
+  List<String> getShuffledOptions() {
+    var returnedList = List.of(options);
+    returnedList.shuffle();
+    return returnedList;
+  }
 }

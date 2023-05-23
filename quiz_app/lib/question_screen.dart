@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:quiz_app/answer_button.dart';
 import 'package:quiz_app/data/quiz_list.dart';
 import 'package:quiz_app/models/quiz.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class QuestionScreen extends StatefulWidget {
   const QuestionScreen({super.key});
@@ -14,6 +15,15 @@ class QuestionScreen extends StatefulWidget {
 
 class _QuiestionSreenState extends State<QuestionScreen> {
   int currentQuizIndex = 0;
+  int maxQuizIndex = quizList.length - 1;
+
+  void goToNextQuiz() {
+    if (currentQuizIndex < maxQuizIndex) {
+      setState(() {
+        currentQuizIndex++;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,16 +38,22 @@ class _QuiestionSreenState extends State<QuestionScreen> {
           children: [
             Text(
               currentQuiz.question,
-              style: const TextStyle(
+              style: GoogleFonts.robotoMono(
                 color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
               ),
               textAlign: TextAlign.center,
             ),
             const SizedBox(
               height: 30,
             ),
-            ...currentQuiz.options
-                .map((e) => AnswerButton(text: e, onTab: () {})),
+            ...currentQuiz.getShuffledOptions().map((e) => AnswerButton(
+                  text: e,
+                  onTab: () {
+                    goToNextQuiz();
+                  },
+                )),
           ],
         ),
       ),
