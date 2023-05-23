@@ -39,4 +39,31 @@ void main() {
 
     expect(find.byKey(const Key('result_title')), findsOneWidget);
   });
+
+  testWidgets('test restart', (WidgetTester tester) async {
+    await tester.pumpWidget(const QuizApp());
+    await tester.tap(find.text('Start Quiz'));
+    await tester.pump();
+
+    for (Quiz quiz in quizList) {
+      await tester.tap(find.byKey(Key('option_${quiz.options[0]}')));
+      await tester.pump();
+    }
+
+    expect(find.byKey(const Key('restart_button')), findsOneWidget);
+
+    await tester.tap(find.byKey(const Key('restart_button')));
+    await tester.pump();
+    expect(find.text(quizList[0].question), findsOneWidget);
+    expect(
+        find.byKey(Key('option_${quizList[0].options.length}')), findsNothing);
+
+    for (Quiz quiz in quizList) {
+      await tester.tap(
+          find.byKey(Key('option_${quiz.options[quiz.options.length - 1]}')));
+      await tester.pump();
+    }
+
+    expect(find.byKey(const Key('result_title')), findsOneWidget);
+  });
 }

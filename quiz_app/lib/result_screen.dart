@@ -62,6 +62,7 @@ class ResultScreen extends StatelessWidget {
             height: 30,
           ),
           TextButton.icon(
+            key: const Key('restart_button'),
             onPressed: () {
               onRestart();
             },
