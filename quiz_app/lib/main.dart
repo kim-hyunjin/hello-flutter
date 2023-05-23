@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/data/quiz_list.dart';
 import 'package:quiz_app/question_screen.dart';
+import 'package:quiz_app/result_screen.dart';
 import 'package:quiz_app/start_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -17,7 +18,7 @@ class QuizApp extends StatefulWidget {
   }
 }
 
-enum ScreenType { start, question }
+enum ScreenType { start, question, result }
 
 class _QuizAppState extends State<QuizApp> {
   ScreenType screenType = ScreenType.start;
@@ -32,8 +33,11 @@ class _QuizAppState extends State<QuizApp> {
 
   void chooseAnswer(String answer) {
     answerList.add(answer);
+
     if (answerList.length == quizList.length) {
-      // TODO: go to result screen
+      setState(() {
+        screenType = ScreenType.result;
+      });
     }
   }
 
@@ -50,6 +54,9 @@ class _QuizAppState extends State<QuizApp> {
           quizList: quizList,
           onChooseAnswer: chooseAnswer,
         );
+        break;
+      case ScreenType.result:
+        activeScreen = ResultScreen(chosenAnswers: answerList);
         break;
     }
 
