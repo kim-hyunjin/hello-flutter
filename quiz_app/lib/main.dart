@@ -15,20 +15,46 @@ class QuizApp extends StatefulWidget {
   }
 }
 
+enum ScreenType { start, question }
+
 class _QuizAppState extends State<QuizApp> {
-  late Widget activeScreen;
+  ScreenType screenType = ScreenType.start;
 
-  @override
-  void initState() {
-    super.initState();
-    activeScreen = StartScreen(changeScreen);
-  }
-
-  void changeScreen() {
+  void changeScreen(ScreenType type) {
     setState(() {
-      activeScreen = const QuestionScreen();
+      screenType = type;
     });
   }
+
+  Widget renderScreen() {
+    Widget activeScreen;
+    switch (screenType) {
+      case ScreenType.start:
+        activeScreen = StartScreen(() {
+          changeScreen(ScreenType.question);
+        });
+        break;
+      case ScreenType.question:
+        activeScreen = const QuestionScreen();
+        break;
+    }
+
+    return activeScreen;
+  }
+
+  // late Widget activeScreen;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   activeScreen = StartScreen(changeScreen);
+  // }
+
+  // void changeScreen() {
+  //   setState(() {
+  //     activeScreen = const QuestionScreen();
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +68,7 @@ class _QuizAppState extends State<QuizApp> {
         body: Container(
           width: double.infinity,
           decoration: const BoxDecoration(color: Colors.deepPurple),
-          child: activeScreen,
+          child: renderScreen(),
         ),
       ),
     );
