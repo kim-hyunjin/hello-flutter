@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/answer_button.dart';
-import 'package:quiz_app/data/quiz_list.dart';
 import 'package:quiz_app/models/quiz.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class QuestionScreen extends StatefulWidget {
-  const QuestionScreen({super.key, required this.onChooseAnswer});
+  const QuestionScreen(
+      {super.key, required this.quizList, required this.onChooseAnswer});
 
+  final List<Quiz> quizList;
   final void Function(String answer) onChooseAnswer;
 
   @override
@@ -17,21 +18,17 @@ class QuestionScreen extends StatefulWidget {
 
 class _QuiestionSreenState extends State<QuestionScreen> {
   int currentQuizIndex = 0;
-  int maxQuizIndex = quizList.length - 1;
 
   void chooseAnswer(String selectedAnswer) {
     widget.onChooseAnswer(selectedAnswer);
-
-    if (currentQuizIndex < maxQuizIndex) {
-      setState(() {
-        currentQuizIndex++;
-      });
-    }
+    setState(() {
+      currentQuizIndex++;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    Quiz currentQuiz = quizList[currentQuizIndex];
+    Quiz currentQuiz = widget.quizList[currentQuizIndex];
 
     return Center(
       child: Container(
