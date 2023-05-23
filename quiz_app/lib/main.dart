@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/question_screen.dart';
 import 'package:quiz_app/start_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const QuizApp());
@@ -63,6 +64,7 @@ class _QuizAppState extends State<QuizApp> {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
+        textTheme: GoogleFonts.latoTextTheme(),
       ),
       home: Scaffold(
         body: Container(
