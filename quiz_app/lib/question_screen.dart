@@ -39,6 +39,7 @@ class _QuiestionSreenState extends State<QuestionScreen> {
           children: [
             Text(
               currentQuiz.question,
+              key: const Key('question'),
               style: GoogleFonts.robotoMono(
                 color: Colors.white,
                 fontSize: 24,

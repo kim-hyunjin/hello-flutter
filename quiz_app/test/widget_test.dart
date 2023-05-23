@@ -19,6 +19,6 @@ void main() {
     await tester.tap(find.text('Start Quiz'));
     await tester.pump();
 
-    expect(find.text('question'), findsOneWidget);
+    expect(find.byKey(const Key('question')), findsOneWidget);
   });
 }
