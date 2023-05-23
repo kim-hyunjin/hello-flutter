@@ -50,7 +50,7 @@ class _QuiestionSreenState extends State<QuestionScreen> {
             const SizedBox(
               height: 30,
             ),
-            ...currentQuiz.getShuffledOptions().map((e) => AnswerButton(
+            ...currentQuiz.shuffledOptions.map((e) => AnswerButton(
                   text: e,
                   onTab: () {
                     chooseAnswer(e);

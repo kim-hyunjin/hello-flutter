@@ -8,7 +8,7 @@ class Quiz {
   final List<String> options;
   final String correctAnswer;
 
-  List<String> getShuffledOptions() {
+  List<String> get shuffledOptions {
     var returnedList = List.of(options);
     returnedList.shuffle();
     return returnedList;
