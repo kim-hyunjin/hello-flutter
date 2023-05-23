@@ -21,10 +21,16 @@ enum ScreenType { start, question }
 class _QuizAppState extends State<QuizApp> {
   ScreenType screenType = ScreenType.start;
 
+  final List<String> answerList = [];
+
   void changeScreen(ScreenType type) {
     setState(() {
       screenType = type;
     });
+  }
+
+  void chooseAnswer(String answer) {
+    answerList.add(answer);
   }
 
   Widget renderScreen() {
@@ -36,7 +42,9 @@ class _QuizAppState extends State<QuizApp> {
         });
         break;
       case ScreenType.question:
-        activeScreen = const QuestionScreen();
+        activeScreen = QuestionScreen(
+          onChooseAnswer: chooseAnswer,
+        );
         break;
     }
 
