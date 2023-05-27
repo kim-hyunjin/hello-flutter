@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of 'package:expense_tracker/widgets/expense/input/input.dart';
 
 class AmountInput extends StatelessWidget {
   const AmountInput({super.key, required this.controller})

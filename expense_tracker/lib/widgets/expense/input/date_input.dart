@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+part of 'package:expense_tracker/widgets/expense/input/input.dart';
 
 final formatter = DateFormat.yMd();
 

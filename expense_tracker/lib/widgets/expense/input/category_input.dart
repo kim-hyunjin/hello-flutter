@@ -1,5 +1,4 @@
-import 'package:expense_tracker/models/expense.dart';
-import 'package:flutter/material.dart';
+part of 'package:expense_tracker/widgets/expense/input/input.dart';
 
 class CategoryInput extends StatelessWidget {
   const CategoryInput({super.key, required this.value, required this.onChange});

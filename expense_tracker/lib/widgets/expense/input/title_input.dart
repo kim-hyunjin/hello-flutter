@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of 'package:expense_tracker/widgets/expense/input/input.dart';
 
 class TitleInput extends StatelessWidget {
   const TitleInput({super.key, required this.controller})

@@ -1,13 +1,7 @@
-import 'package:expense_tracker/widgets/expense/input/amount_input.dart';
-import 'package:expense_tracker/widgets/expense/input/category_input.dart';
-import 'package:expense_tracker/widgets/expense/input/date_input.dart';
-import 'package:expense_tracker/widgets/expense/input/title_input.dart';
+import 'package:expense_tracker/widgets/expense/input/input.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import 'package:expense_tracker/models/expense.dart';
-
-final formatter = DateFormat.yMd();
 
 class NewExpense extends StatefulWidget {
   const NewExpense({super.key, required this.onAddExpense});
@@ -94,6 +88,85 @@ class _NewExpenseState extends State<NewExpense> {
   @override
   Widget build(BuildContext context) {
     final keyboardSpace = MediaQuery.of(context).viewInsets.bottom;
+
+    final horizontalLayout = Column(
+      children: [
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TitleInput.withExpanded(controller: _titleController),
+            AmountInput.withExpanded(controller: _amountController),
+          ],
+        ),
+        Row(
+          children: [
+            CategoryInput(
+                value: _selectedCategory, onChange: _handleCategoryChange),
+            DateInput(
+              onClick: _presentDatePicker,
+              value: _selectedDate,
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        Row(
+          children: [
+            const Spacer(),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: _submitExpenseData,
+              child: const Text('Save Expense'),
+            )
+          ],
+        ),
+      ],
+    );
+
+    final verticalLayout = Column(
+      children: [
+        TitleInput(controller: _titleController),
+        Row(
+          children: [
+            AmountInput.withExpanded(controller: _amountController),
+            const SizedBox(
+              width: 16,
+            ),
+            DateInput(
+              onClick: _presentDatePicker,
+              value: _selectedDate,
+            ),
+          ],
+        ),
+        const SizedBox(
+          height: 16,
+        ),
+        Row(
+          children: [
+            CategoryInput(
+                value: _selectedCategory, onChange: _handleCategoryChange),
+            const Spacer(),
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Cancel'),
+            ),
+            ElevatedButton(
+              onPressed: _submitExpenseData,
+              child: const Text('Save Expense'),
+            )
+          ],
+        ),
+      ],
+    );
+
     return LayoutBuilder(
       builder: (ctx, constraints) {
         final width = constraints.maxWidth;
@@ -102,67 +175,7 @@ class _NewExpenseState extends State<NewExpense> {
           child: SingleChildScrollView(
             child: Padding(
               padding: EdgeInsets.fromLTRB(16, 48, 16, keyboardSpace + 16),
-              child: Column(
-                children: [
-                  if (width >= 600)
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TitleInput.withExpanded(controller: _titleController),
-                        AmountInput.withExpanded(controller: _amountController),
-                      ],
-                    )
-                  else
-                    TitleInput(controller: _titleController),
-                  if (width >= 600)
-                    Row(
-                      children: [
-                        CategoryInput(
-                            value: _selectedCategory,
-                            onChange: _handleCategoryChange),
-                        DateInput(
-                          onClick: _presentDatePicker,
-                          value: _selectedDate,
-                        ),
-                      ],
-                    )
-                  else
-                    Row(
-                      children: [
-                        AmountInput.withExpanded(controller: _amountController),
-                        const SizedBox(
-                          width: 16,
-                        ),
-                        DateInput(
-                          onClick: _presentDatePicker,
-                          value: _selectedDate,
-                        ),
-                      ],
-                    ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Row(
-                    children: [
-                      if (width < 600)
-                        CategoryInput(
-                            value: _selectedCategory,
-                            onChange: _handleCategoryChange),
-                      const Spacer(),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: const Text('Cancel'),
-                      ),
-                      ElevatedButton(
-                        onPressed: _submitExpenseData,
-                        child: const Text('Save Expense'),
-                      )
-                    ],
-                  ),
-                ],
-              ),
+              child: width >= 600 ? horizontalLayout : verticalLayout,
             ),
           ),
         );
