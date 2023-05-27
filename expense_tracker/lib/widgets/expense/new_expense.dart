@@ -89,25 +89,10 @@ class _NewExpenseState extends State<NewExpense> {
           padding: EdgeInsets.fromLTRB(16, 48, 16, keyboardSpace + 16),
           child: Column(
             children: [
-              TextField(
-                controller: _titleController,
-                maxLength: 50,
-                decoration: const InputDecoration(
-                  label: Text('Title'),
-                ),
-              ),
+              TitleInput(controller: _titleController),
               Row(
                 children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _amountController,
-                      keyboardType: TextInputType.number,
-                      decoration: const InputDecoration(
-                        prefixText: '\$ ',
-                        label: Text('Amount'),
-                      ),
-                    ),
-                  ),
+                  AmountInput.withExpanded(controller: _amountController),
                   const SizedBox(
                     width: 16,
                   ),
@@ -170,5 +155,62 @@ class _NewExpenseState extends State<NewExpense> {
         ),
       ),
     );
+  }
+}
+
+class TitleInput extends StatelessWidget {
+  const TitleInput({super.key, required this.controller})
+      : withExpanded = false;
+
+  const TitleInput.withExpanded({super.key, required this.controller})
+      : withExpanded = true;
+
+  final TextEditingController controller;
+  final bool withExpanded;
+
+  @override
+  Widget build(BuildContext context) {
+    var input = TextField(
+      controller: controller,
+      maxLength: 50,
+      decoration: const InputDecoration(
+        label: Text('Title'),
+      ),
+    );
+
+    if (withExpanded) {
+      return Expanded(child: input);
+    } else {
+      return input;
+    }
+  }
+}
+
+class AmountInput extends StatelessWidget {
+  const AmountInput({super.key, required this.controller})
+      : withExpanded = false;
+
+  const AmountInput.withExpanded({super.key, required this.controller})
+      : withExpanded = true;
+
+  final TextEditingController controller;
+  final bool withExpanded;
+
+  @override
+  Widget build(BuildContext context) {
+    var input = TextField(
+      controller: controller,
+      keyboardType: TextInputType.number,
+      decoration: const InputDecoration(
+        prefixText: '\$ ',
+        label: Text('Amount'),
+      ),
+    );
+
+    if (withExpanded) {
+      return Expanded(child: input);
+    } else {
+      return input;
+    }
   }
 }
