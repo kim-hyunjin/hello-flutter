@@ -1,7 +1,17 @@
 import 'package:expense_tracker/expenses.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter/services.dart';
 
 void main() {
+  /*
+  // we can fix the orientation by using SystemChrome.setPreferredOrientations
+
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+      .then((_) {
+    runApp(const MyApp());
+  });
+  */
   runApp(const MyApp());
 }
 
