@@ -1,3 +1,7 @@
+import 'package:expense_tracker/widgets/expense/input/amount_input.dart';
+import 'package:expense_tracker/widgets/expense/input/category_input.dart';
+import 'package:expense_tracker/widgets/expense/input/date_input.dart';
+import 'package:expense_tracker/widgets/expense/input/title_input.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -163,110 +167,6 @@ class _NewExpenseState extends State<NewExpense> {
           ),
         );
       },
-    );
-  }
-}
-
-class TitleInput extends StatelessWidget {
-  const TitleInput({super.key, required this.controller})
-      : withExpanded = false;
-
-  const TitleInput.withExpanded({super.key, required this.controller})
-      : withExpanded = true;
-
-  final TextEditingController controller;
-  final bool withExpanded;
-
-  @override
-  Widget build(BuildContext context) {
-    var input = TextField(
-      controller: controller,
-      maxLength: 50,
-      decoration: const InputDecoration(
-        label: Text('Title'),
-      ),
-    );
-
-    if (withExpanded) {
-      return Expanded(child: input);
-    } else {
-      return input;
-    }
-  }
-}
-
-class AmountInput extends StatelessWidget {
-  const AmountInput({super.key, required this.controller})
-      : withExpanded = false;
-
-  const AmountInput.withExpanded({super.key, required this.controller})
-      : withExpanded = true;
-
-  final TextEditingController controller;
-  final bool withExpanded;
-
-  @override
-  Widget build(BuildContext context) {
-    var input = TextField(
-      controller: controller,
-      keyboardType: TextInputType.number,
-      decoration: const InputDecoration(
-        prefixText: '\$ ',
-        label: Text('Amount'),
-      ),
-    );
-
-    if (withExpanded) {
-      return Expanded(child: input);
-    } else {
-      return input;
-    }
-  }
-}
-
-class DateInput extends StatelessWidget {
-  const DateInput({super.key, this.value, required this.onClick});
-
-  final DateTime? value;
-  final void Function() onClick;
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text(value == null ? 'No date selected' : formatter.format(value!)),
-          IconButton(
-            onPressed: onClick,
-            icon: const Icon(Icons.calendar_month),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class CategoryInput extends StatelessWidget {
-  const CategoryInput({super.key, required this.value, required this.onChange});
-
-  final Category value;
-  final void Function(Category?) onChange;
-
-  @override
-  Widget build(BuildContext context) {
-    return DropdownButton(
-      value: value,
-      items: Category.values
-          .map((category) => DropdownMenuItem(
-                value: category,
-                child: Text(
-                  category.name.toUpperCase(),
-                ),
-              ))
-          .toList(),
-      onChanged: onChange,
     );
   }
 }
