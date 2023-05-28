@@ -7,24 +7,36 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:meals_app/data/dummy_meals.dart';
 
-import 'package:meals_app/main.dart';
+import 'package:meals_app/screens/meals_screen.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('meals screen - empty meals', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+          home: MealsScreen(
+        title: 'test',
+        meals: [],
+      )),
+    );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.text('test'), findsOneWidget);
+    expect(find.byType(ListView), findsNothing);
+    expect(find.text('Try selecting different category'), findsOneWidget);
+  });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+  testWidgets('meals screen - with meals', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      const MaterialApp(
+          home: MealsScreen(
+        title: 'test',
+        meals: dummyMeals,
+      )),
+    );
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text('test'), findsOneWidget);
+    expect(find.byType(ListView), findsOneWidget);
+    expect(find.text('Try selecting different category'), findsNothing);
   });
 }
