@@ -8,16 +8,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:meals_app/data/dummy_meals.dart';
+import 'package:meals_app/models/meal.dart';
 
 import 'package:meals_app/screens/meals_screen.dart';
 
 void main() {
+  void _onToggleFav(Meal meal) {}
   testWidgets('meals screen - empty meals', (WidgetTester tester) async {
     await tester.pumpWidget(
-      const MaterialApp(
+      MaterialApp(
           home: MealsScreen(
         title: 'test',
         meals: [],
+        onToggleFavorite: _onToggleFav,
       )),
     );
 
@@ -28,10 +31,11 @@ void main() {
 
   testWidgets('meals screen - with meals', (WidgetTester tester) async {
     await tester.pumpWidget(
-      const MaterialApp(
+      MaterialApp(
           home: MealsScreen(
         title: 'test',
         meals: dummyMeals,
+        onToggleFavorite: _onToggleFav,
       )),
     );
 
