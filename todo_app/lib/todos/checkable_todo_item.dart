@@ -10,6 +10,17 @@ class CheckableTodoItem extends StatefulWidget {
   State<CheckableTodoItem> createState() => _CheckableTodoItemState();
 }
 
+// flutter는 widget의 위치가 바뀌면 기존 widget을 재사용하되 element에 연결된 'widget의 reference'만 바꿈
+// state는 widget이 아닌 element에 연결됨
+// TodoItem widget A <-- TodoItem element --> state A
+// TodoItem widget B <-- TodoItem element --> state B
+// TodoItem widget C <-- TodoItem element --> state C
+
+// 여기서 key없이 widget의 위치를 바꾸면?
+// widget C에 state A가 연결될 수 있음..
+// TodoItem widget C <-- TodoItem element --> state A
+// TodoItem widget B <-- TodoItem element --> state B
+// TodoItem widget A <-- TodoItem element --> state C
 class _CheckableTodoItemState extends State<CheckableTodoItem> {
   var _done = false;
 

@@ -74,7 +74,7 @@ class _TodosState extends State<Todos> {
             children: [
               // for (final todo in _orderedTodos) TodoItem(todo.text, todo.priority),
               for (final todo in _orderedTodos)
-                TodoItem(
+                CheckableTodoItem(
                   todo.text,
                   todo.priority,
                 ),
