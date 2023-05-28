@@ -77,6 +77,8 @@ class _TodosState extends State<Todos> {
                 CheckableTodoItem(
                   todo.text,
                   todo.priority,
+                  key: Key(todo
+                      .text), // Key == ValueKey(more lightweight), ObjectKey
                 ),
             ],
           ),

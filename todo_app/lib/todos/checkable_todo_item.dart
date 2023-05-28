@@ -21,6 +21,9 @@ class CheckableTodoItem extends StatefulWidget {
 // TodoItem widget C <-- TodoItem element --> state A
 // TodoItem widget B <-- TodoItem element --> state B
 // TodoItem widget A <-- TodoItem element --> state C
+
+// key와 함께라면?
+// 같은 key의 widget의 위치가 바뀔 때 element 위치도 함께 바꿔줌
 class _CheckableTodoItemState extends State<CheckableTodoItem> {
   var _done = false;
 
