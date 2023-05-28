@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 // import 'package:meals_app/screens/tabs_screen.dart';
 // import 'package:meals_app/widgets/main_drawer.dart';
 
+enum Filter { glutenFree, lactoseFree, vegeterian, vegan }
+
 class FiltersScreen extends StatefulWidget {
   const FiltersScreen({super.key});
 
@@ -33,44 +35,56 @@ class _FiltersScreenState extends State<FiltersScreen> {
       //     }
       //   },
       // ),
-      body: Column(children: [
-        FilterItem(
-            label: 'Gluten-free',
-            desc: 'Only include gluten-free meals.',
-            value: _glutenFreeFilterSet,
-            onChanged: (isChecked) {
-              setState(() {
-                _glutenFreeFilterSet = isChecked;
-              });
-            }),
-        FilterItem(
-            label: 'Lactose-free',
-            desc: 'Only include lactose-free meals.',
-            value: _lactoseFreeFilterSet,
-            onChanged: (isChecked) {
-              setState(() {
-                _lactoseFreeFilterSet = isChecked;
-              });
-            }),
-        FilterItem(
-            label: 'Vegeterian',
-            desc: 'Only include vegeterian meals.',
-            value: _vegeterianFilterSet,
-            onChanged: (isChecked) {
-              setState(() {
-                _vegeterianFilterSet = isChecked;
-              });
-            }),
-        FilterItem(
-            label: 'Vegan',
-            desc: 'Only include vegan meals.',
-            value: _veganFilterSet,
-            onChanged: (isChecked) {
-              setState(() {
-                _veganFilterSet = isChecked;
-              });
-            }),
-      ]),
+      body: WillPopScope(
+        onWillPop: () async {
+          Navigator.of(context).pop({
+            Filter.glutenFree: _glutenFreeFilterSet,
+            Filter.lactoseFree: _lactoseFreeFilterSet,
+            Filter.vegeterian: _vegeterianFilterSet,
+            Filter.vegan: _veganFilterSet,
+          });
+
+          return false;
+        },
+        child: Column(children: [
+          FilterItem(
+              label: 'Gluten-free',
+              desc: 'Only include gluten-free meals.',
+              value: _glutenFreeFilterSet,
+              onChanged: (isChecked) {
+                setState(() {
+                  _glutenFreeFilterSet = isChecked;
+                });
+              }),
+          FilterItem(
+              label: 'Lactose-free',
+              desc: 'Only include lactose-free meals.',
+              value: _lactoseFreeFilterSet,
+              onChanged: (isChecked) {
+                setState(() {
+                  _lactoseFreeFilterSet = isChecked;
+                });
+              }),
+          FilterItem(
+              label: 'Vegeterian',
+              desc: 'Only include vegeterian meals.',
+              value: _vegeterianFilterSet,
+              onChanged: (isChecked) {
+                setState(() {
+                  _vegeterianFilterSet = isChecked;
+                });
+              }),
+          FilterItem(
+              label: 'Vegan',
+              desc: 'Only include vegan meals.',
+              value: _veganFilterSet,
+              onChanged: (isChecked) {
+                setState(() {
+                  _veganFilterSet = isChecked;
+                });
+              }),
+        ]),
+      ),
     );
   }
 }
