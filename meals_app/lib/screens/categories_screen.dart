@@ -60,10 +60,29 @@ class _CategoriesScreenState extends State<CategoriesScreen>
     return AnimatedBuilder(
       animation: _animationController,
       builder: (ctx, child) {
-        return Padding(
-          padding: EdgeInsets.only(top: 100 - _animationController.value * 100),
-          child: child,
-        );
+        // return Padding(
+        //   padding: EdgeInsets.only(top: 100 - _animationController.value * 100),
+        //   child: child,
+        // );
+
+        // more optimized and more capability with built-in Class SlideTransition
+        // return SlideTransition(
+        //   position: _animationController.drive(Tween(
+        //     begin: const Offset(0, 0.3), // y-axis 30% down
+        //     end: const Offset(0, 0),
+        //   )),
+        //   child: child,
+        // );
+
+        return SlideTransition(
+            position: Tween(
+              begin: const Offset(0, 0.3), // y-axis 30% down
+              end: const Offset(0, 0),
+            ).animate(CurvedAnimation(
+              parent: _animationController,
+              curve: Curves.easeInOut,
+            )),
+            child: child);
       },
       child: GridView(
         padding: const EdgeInsets.all(16),
