@@ -8,19 +8,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:meals_app/data/dummy_meals.dart';
-import 'package:meals_app/models/meal.dart';
 
 import 'package:meals_app/screens/meals_screen.dart';
+import 'package:network_image_mock/network_image_mock.dart';
 
 void main() {
-  void _onToggleFav(Meal meal) {}
   testWidgets('meals screen - empty meals', (WidgetTester tester) async {
     await tester.pumpWidget(
-      MaterialApp(
+      const MaterialApp(
           home: MealsScreen(
         title: 'test',
         meals: [],
-        onToggleFavorite: _onToggleFav,
       )),
     );
 
@@ -30,14 +28,13 @@ void main() {
   });
 
   testWidgets('meals screen - with meals', (WidgetTester tester) async {
-    await tester.pumpWidget(
-      MaterialApp(
-          home: MealsScreen(
-        title: 'test',
-        meals: dummyMeals,
-        onToggleFavorite: _onToggleFav,
-      )),
-    );
+    await mockNetworkImagesFor(() => tester.pumpWidget(
+          const MaterialApp(
+              home: MealsScreen(
+            title: 'test',
+            meals: dummyMeals,
+          )),
+        ));
 
     expect(find.text('test'), findsOneWidget);
     expect(find.byType(ListView), findsOneWidget);
