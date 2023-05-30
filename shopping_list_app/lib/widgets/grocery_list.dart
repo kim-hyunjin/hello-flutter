@@ -30,31 +30,47 @@ class _GroceryListState extends State<GroceryList> {
     final url = Uri.https(
         'flutter-test-57826-default-rtdb.asia-southeast1.firebasedatabase.app',
         'shopping-list.json');
-    final response = await http.get(url);
 
-    if (response.statusCode >= 400) {
+    try {
+      final response = await http.get(url);
+
+      if (response.statusCode >= 400) {
+        setState(() {
+          _error = 'Failed to fetch data. Please try again later.';
+        });
+      }
+
+      if (response.body == 'null') {
+        setState(() {
+          _isLoading = false;
+        });
+        return;
+      }
+
+      final Map<String, dynamic> decodedData = json.decode(response.body);
+      final List<GroceryItem> loadedItems = [];
+      for (final item in decodedData.entries) {
+        final cateogry = categories.entries
+            .firstWhere(
+                (element) => element.value.name == item.value['category'])
+            .value;
+        loadedItems.add(GroceryItem(
+            id: item.key,
+            name: item.value['name'],
+            quantity: item.value['quantity'],
+            category: cateogry));
+      }
+
       setState(() {
+        _groceryItems = loadedItems;
+        _isLoading = false;
+      });
+    } catch (error) {
+      setState(() {
+        _isLoading = false;
         _error = 'Failed to fetch data. Please try again later.';
       });
     }
-
-    final Map<String, dynamic> decodedData = json.decode(response.body);
-    final List<GroceryItem> loadedItems = [];
-    for (final item in decodedData.entries) {
-      final cateogry = categories.entries
-          .firstWhere((element) => element.value.name == item.value['category'])
-          .value;
-      loadedItems.add(GroceryItem(
-          id: item.key,
-          name: item.value['name'],
-          quantity: item.value['quantity'],
-          category: cateogry));
-    }
-
-    setState(() {
-      _groceryItems = loadedItems;
-      _isLoading = false;
-    });
   }
 
   void _addItem(BuildContext context) async {
