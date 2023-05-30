@@ -43,6 +43,11 @@ class _GroceryListState extends State<GroceryList> {
           onDismissed: (direction) {
             _removeItem(_groceryItems[index]);
           },
+          background: Container(
+            color: Theme.of(context).colorScheme.error.withOpacity(0.75),
+            margin: Theme.of(context).cardTheme.margin,
+            child: const Icon(Icons.delete),
+          ),
           child: ListTile(
             title: Text(_groceryItems[index].name),
             leading: Container(
