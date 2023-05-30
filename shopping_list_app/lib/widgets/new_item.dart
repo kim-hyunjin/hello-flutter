@@ -48,12 +48,13 @@ class _NewItem extends State<NewItem> {
         _isSending = false;
       });
 
-      if (response.statusCode >= 400) {
-        // error occured
+      if (!context.mounted) {
         return;
       }
 
-      if (!context.mounted) {
+      if (response.statusCode >= 400) {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Fail to save... Please try again later.')));
         return;
       }
 
