@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 
 import 'package:shopping_list_app/data/categories.dart';
 import 'package:shopping_list_app/models/category.dart';
+import 'package:shopping_list_app/models/grocery_item.dart';
 
 class NewItem extends StatefulWidget {
   const NewItem({super.key});
@@ -41,13 +42,20 @@ class _NewItem extends State<NewItem> {
 
       if (response.statusCode >= 400) {
         // error occured
+        return;
       }
 
       if (!context.mounted) {
         return;
       }
+
+      final Map<String, dynamic> resData = json.decode(response.body);
       // screen still visible, we can pop it.
-      Navigator.of(context).pop();
+      Navigator.of(context).pop(GroceryItem(
+          id: resData['name'],
+          name: _enteredName,
+          quantity: _enteredQuantity,
+          category: _selectedCategory));
     }
   }
 
