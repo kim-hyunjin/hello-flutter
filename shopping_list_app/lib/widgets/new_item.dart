@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shopping_list_app/data/categories.dart';
 
 class NewItem extends StatefulWidget {
   const NewItem({super.key});
@@ -18,7 +19,75 @@ class _NewItem extends State<NewItem> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(12),
-        child: Text('The form'),
+        child: Form(
+          child: Column(
+            children: [
+              TextFormField(
+                maxLength: 50,
+                decoration: const InputDecoration(
+                  label: Text('Name'),
+                ),
+                validator: (value) {
+                  return 'Demo...';
+                },
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      decoration: const InputDecoration(
+                        label: Text('Quantity'),
+                      ),
+                      initialValue: '1',
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 8,
+                  ),
+                  Expanded(
+                    child: DropdownButtonFormField(
+                      items: [
+                        for (final cate in categories.entries)
+                          DropdownMenuItem(
+                            value: cate.value,
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 16,
+                                  height: 16,
+                                  color: cate.value.color,
+                                ),
+                                const SizedBox(
+                                  width: 6,
+                                ),
+                                Text(cate.value.name),
+                              ],
+                            ),
+                          )
+                      ],
+                      onChanged: (changed) {},
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  TextButton(
+                    onPressed: () {},
+                    child: const Text('Reset'),
+                  ),
+                  ElevatedButton(
+                      onPressed: () {}, child: const Text('Add Item')),
+                ],
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
