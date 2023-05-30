@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shopping_list_app/data/categories.dart';
+import 'package:shopping_list_app/models/category.dart';
+import 'package:shopping_list_app/models/grocery_item.dart';
 
 class NewItem extends StatefulWidget {
   const NewItem({super.key});
@@ -12,9 +14,20 @@ class NewItem extends StatefulWidget {
 
 class _NewItem extends State<NewItem> {
   final _formKey = GlobalKey<FormState>();
+  var _enteredName = '';
+  var _enteredQuantity = 1;
+  var _selectedCategory = categories[Categories.vegetables]!;
 
   void _saveItem() {
-    _formKey.currentState!.validate();
+    final isValid = _formKey.currentState!.validate();
+    if (isValid) {
+      _formKey.currentState!.save();
+      Navigator.of(context).pop(GroceryItem(
+          id: DateTime.now().toString(),
+          name: _enteredName,
+          quantity: _enteredQuantity,
+          category: _selectedCategory));
+    }
   }
 
   @override
@@ -43,6 +56,9 @@ class _NewItem extends State<NewItem> {
                   }
                   return null;
                 },
+                onSaved: (newValue) {
+                  _enteredName = newValue!;
+                },
               ),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -63,6 +79,9 @@ class _NewItem extends State<NewItem> {
                         }
                         return null;
                       },
+                      onSaved: (newValue) {
+                        _enteredQuantity = int.parse(newValue!);
+                      },
                     ),
                   ),
                   const SizedBox(
@@ -70,6 +89,7 @@ class _NewItem extends State<NewItem> {
                   ),
                   Expanded(
                     child: DropdownButtonFormField(
+                      value: _selectedCategory,
                       items: [
                         for (final cate in categories.entries)
                           DropdownMenuItem(
@@ -89,7 +109,11 @@ class _NewItem extends State<NewItem> {
                             ),
                           )
                       ],
-                      onChanged: (changed) {},
+                      onChanged: (newValue) {
+                        setState(() {
+                          _selectedCategory = newValue!;
+                        });
+                      },
                     ),
                   ),
                 ],
