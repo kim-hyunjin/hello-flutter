@@ -25,14 +25,6 @@ class _LocationInputState extends State<LocationInput> {
   PlaceLocation? _pickedLocation;
   var _isGettingLocation = false;
 
-  String get locationImage {
-    if (_pickedLocation == null) return '';
-
-    var lat = _pickedLocation!.latitude;
-    var lng = _pickedLocation!.longitude;
-    return 'https://maps.googleapis.com/maps/api/staticmap?center=$lat,$lng&zoom=16&size=600x300&maptype=roadmap&markers=color:red%7Clabel:A%7C$lat,$lng&key=${Env.googleApiKey}';
-  }
-
   void _getCurrentLocation() async {
     Location location = Location();
 
@@ -96,7 +88,7 @@ class _LocationInputState extends State<LocationInput> {
 
     if (_pickedLocation != null) {
       previewContent = Image.network(
-        locationImage,
+        _pickedLocation!.locationImage,
         fit: BoxFit.cover,
         width: double.infinity,
         height: double.infinity,
