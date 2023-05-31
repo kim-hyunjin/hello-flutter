@@ -67,21 +67,20 @@ class _LocationInputState extends State<LocationInput> {
     final url = Uri.parse(
         'https://maps.googleapis.com/maps/api/geocode/json?latlng=${locationData.latitude},${locationData.longitude}&key=${Env.googleApiKey}');
     final response = await http.get(url);
-    print(response.body);
     final decoded = jsonDecode(response.body);
-    print(decoded);
     final address = decoded['results'][0]['formatted_address'];
 
+    final newLocation = PlaceLocation(
+        latitude: locationData.latitude!,
+        longitude: locationData.longitude!,
+        address: address);
+
     setState(() {
-      _pickedLocation = PlaceLocation(
-          latitude: locationData.latitude!,
-          longitude: locationData.longitude!,
-          address: address);
+      _pickedLocation = newLocation;
       _isGettingLocation = false;
     });
 
-    print(locationData.latitude);
-    print(locationData.longitude);
+    widget.onSetLocation(newLocation);
   }
 
   @override

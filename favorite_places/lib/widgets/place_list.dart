@@ -37,6 +37,13 @@ class PlaceList extends StatelessWidget {
             places[index].name,
             style: textStyle,
           ),
+          subtitle: Text(
+            places[index].location.address,
+            style: Theme.of(context)
+                .textTheme
+                .bodySmall!
+                .copyWith(color: Theme.of(context).colorScheme.onBackground),
+          ),
           onTap: () {
             onSelectPlace(context, places[index]);
           },

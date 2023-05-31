@@ -25,6 +25,9 @@ class AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
   void _addPlace() {
     final isValid = _formKey.currentState!.validate();
     if (!isValid || _pickedImage == null || _location == null) {
+      // print('isValid $isValid');
+      // print('_pickedImage == null ${_pickedImage == null}');
+      // print('_location == null ${_location == null}');
       return;
     }
     ref.read(placesProvider.notifier).addFavPlace(Place(
