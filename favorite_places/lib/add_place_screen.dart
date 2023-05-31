@@ -20,21 +20,27 @@ class AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   File? _pickedImage;
+  PlaceLocation? _location;
 
   void _addPlace() {
     final isValid = _formKey.currentState!.validate();
-    if (!isValid || _pickedImage == null) {
+    if (!isValid || _pickedImage == null || _location == null) {
       return;
     }
-    ref
-        .read(placesProvider.notifier)
-        .addFavPlace(Place(name: _nameController.text, image: _pickedImage!));
+    ref.read(placesProvider.notifier).addFavPlace(Place(
+        name: _nameController.text,
+        image: _pickedImage!,
+        location: _location!));
 
     Navigator.of(context).pop();
   }
 
   void _onPickImage(File image) {
     _pickedImage = image;
+  }
+
+  void _onSetLocation(PlaceLocation location) {
+    _location = location;
   }
 
   @override
@@ -81,7 +87,9 @@ class AddPlaceScreenState extends ConsumerState<AddPlaceScreen> {
                   const SizedBox(
                     height: 16,
                   ),
-                  LocationInput(),
+                  LocationInput(
+                    onSetLocation: _onSetLocation,
+                  ),
                   const SizedBox(
                     height: 16,
                   ),
