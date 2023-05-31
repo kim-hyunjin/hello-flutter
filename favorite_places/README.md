@@ -1,16 +1,10 @@
 # favorite_places
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 빌드 문제
+1. location 라이브러리 코틀린 버전 문제
+### how to fix
+```
+android studio에서
+flutter plugins 중 location-4.4.0을 찾아 build.gradle에서 ext.kotlin_version 값을 다음과 같이 변경
+ext.kotlin_version = '1.5.20'
+```
