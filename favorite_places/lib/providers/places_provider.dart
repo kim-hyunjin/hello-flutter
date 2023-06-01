@@ -11,7 +11,8 @@ class PlacesNotifier extends StateNotifier<List<Place>> {
   PlacesNotifier() : super([]);
 
   PlaceDB db = PlaceDB();
-  void loadPlaces() async {
+
+  Future<void> loadPlaces() async {
     state = await db.selectAll();
   }
 
@@ -25,5 +26,3 @@ class PlacesNotifier extends StateNotifier<List<Place>> {
     state = [place, ...state];
   }
 }
-
-
