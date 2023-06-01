@@ -24,3 +24,5 @@
    }
    }
    ```
+
+4. 위와 같이 firestore database도 설정
