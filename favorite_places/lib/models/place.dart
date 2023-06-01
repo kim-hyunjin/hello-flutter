@@ -6,16 +6,24 @@ import 'package:uuid/uuid.dart';
 const uuid = Uuid();
 
 class Place {
-  Place({
-    required this.name,
-    required this.image,
-    required this.location,
-  }) : id = uuid.v4();
-
   final String id;
   final String name;
   final File image;
   final PlaceLocation location;
+
+  Place({
+    required this.name,
+    required this.image,
+    required this.location,
+    id
+  }) : id = id ?? uuid.v4();
+
+  Place copyWith({String? id, String? name, File? image, PlaceLocation? location}) => Place(
+    id: id ?? this.id,
+    name: name ?? this.name,
+    image: image ?? this.image,
+    location: location ?? this.location
+  );
 }
 
 class PlaceLocation {
