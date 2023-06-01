@@ -1,3 +1,4 @@
+import 'package:chat_app/providers/user_provider.dart';
 import 'package:chat_app/widgets/chat_messages.dart';
 import 'package:chat_app/widgets/new_message.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,6 +16,7 @@ class ChatScreen extends StatelessWidget {
           IconButton(
               onPressed: () {
                 FirebaseAuth.instance.signOut();
+                UserProvider.clear();
               },
               icon: Icon(
                 Icons.exit_to_app,
@@ -22,7 +24,7 @@ class ChatScreen extends StatelessWidget {
               ))
         ],
       ),
-      body: Column(children: [
+      body: const Column(children: [
         Expanded(child: ChatMessages()),
         NewMessage(),
       ]),

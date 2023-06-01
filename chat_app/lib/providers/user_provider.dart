@@ -22,4 +22,8 @@ class UserProvider {
 
     return _currentUser!;
   }
+
+  static void clear() {
+    _currentUser = null;
+  }
 }
