@@ -1,3 +1,4 @@
+import 'package:chat_app/providers/user_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -28,17 +29,13 @@ class _NewMessageState extends State<NewMessage> {
     FocusScope.of(context).unfocus();
     _newMessageController.clear();
 
-    final user = FirebaseAuth.instance.currentUser!;
-    final userData = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(user.uid)
-        .get();
+    final user = await UserProvider.currentUser;
     FirebaseFirestore.instance.collection('chat').add({
       'text': enteredMsg,
       'createdAt': Timestamp.now(),
-      'userId': user.uid,
-      'username': userData.data()!['username'],
-      'userImage': userData.data()!['image_url'],
+      'userId': user.id,
+      'username': user.username,
+      'userImage': user.imageUrl,
     });
   }
 
