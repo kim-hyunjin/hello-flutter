@@ -26,3 +26,6 @@
    ```
 
 4. 위와 같이 firestore database도 설정
+
+5. 푸시 노티피케이션 - firebase cloud messaging 설정
+   [link](https://firebase.google.com/docs/cloud-messaging/flutter/client?hl=ko)
